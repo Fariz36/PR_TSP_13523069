@@ -152,100 +152,106 @@ This implementation uses dynamic programming with bitmasking. The state $\text{d
 
 The transitions are made by iterating through all possible last visited cities $u$ in the current $\text{mask}$ and then trying to move to an unvisited city $v$.
 
-Here's a formal description of the bitmask dynamic programming formula used in the TSP solver:
+# Bitmask Dynamic Programming for TSP
 
-Let $N$ be the number of cities (nodes) in the graph, indexed from $0$ to $N-1$.
-Let $C(i, j)$ be the cost (weight) of the edge from city $i$ to city $j$. If there is no direct edge, $C(i, j) = \infty$.
+Let $N$ be the number of cities (nodes) in the graph, indexed from $0$ to $N-1$.  
+Let $C(i, j)$ be the cost (weight) of the edge from city $i$ to city $j$.  
+If there is no direct edge, $C(i, j) = \infty$.
 
 We define a 2D DP table, $\text{dp}[S][i]$, where:
 
-* $S$ is a bitmask representing the set of cities already visited in the current path. The $k$-th bit of $S$ is set to $1$ if city $k$ has been visited, and $0$ otherwise.
+- $S$ is a bitmask representing the set of cities already visited in the current path.  
+  The $k$-th bit of $S$ is set to $1$ if city $k$ has been visited, and $0$ otherwise.
 
-* $i$ is the last city visited in the path represented by the bitmask $S$.
+- $i$ is the last city visited in the path represented by the bitmask $S$.
 
 $\text{dp}[S][i]$ stores the minimum cost of a path that starts at city $0$, visits all cities in the set $S$, and ends at city $i$.
 
-### **1. Base Case**
+---
 
-The base case initializes the DP table for the starting city.
+## 1. Base Case
+
+The base case initializes the DP table for the starting city.  
 Since the path starts at city $0$, the initial state is when only city $0$ has been visited, and it is the last city visited.
 
-$$
+```math
 \text{dp}[1 \ll 0][0] = 0
-$$
+```
 
-This means the cost of a path that starts at city $0$, visits only city $0$ (represented by the bitmask $1 \ll 0$, which is $1$), and ends at city $0$ is $0$. All other $\text{dp}[S][i]$ values are initialized to $\infty$.
+This means the cost of a path that starts at city $0$, visits only city $0$ (represented by the bitmask $1 \ll 0$, which is $1$), and ends at city $0$ is $0$.  
+All other $\text{dp}[S][i]$ values are initialized to $\infty$.
 
-### **2. Recurrence Relation**
+---
 
-To compute $\text{dp}[S][i]$, we consider all possible previous cities $j$ from which we could have arrived at city $i$.
-For each city $i$ and each bitmask $S$ such that the $i$-th bit is set in $S$ (i.e., $(S \text{ AND } (1 \ll i)) \neq 0$), and $i \neq 0$ (since city $0$ is the starting point and we are building paths ending at $i$ after visiting other cities):
+## 2. Recurrence Relation
 
-$$
-\text{dp}[S][i] = \min_{j \in S \setminus {i}} \left( \text{dp}[S \setminus {i}][j] + C(j, i) \right)
-$$
+To compute $\text{dp}[S][i]$, we consider all possible previous cities $j$ from which we could have arrived at city $i$.  
+For each city $i$ and each bitmask $S$ such that the $i$-th bit is set in $S$ (i.e., $(S \text{ AND } (1 \ll i)) \neq 0$), and $i \neq 0$:
 
-where:
+```math
+\text{dp}[S][i] = \min_{j \in S \setminus \{i\}} \left( \text{dp}[S \setminus \{i\}][j] + C(j, i) \right)
+```
 
-* $S \setminus {i}$ represents the bitmask $S$ with the $i$-th bit unset (i.e., $S \text{ XOR } (1 \ll i)$). This means we are looking at the state where all cities in $S$ except $i$ were visited, ending at city $j$.
+Where:
 
-* The minimum is taken over all cities $j$ that were part of the path before $i$ (i.e., $j$ is in the set $S$ and $j \neq i$).
+- $S \setminus \{i\}$ represents the bitmask $S$ with the $i$-th bit unset (i.e., $S \text{ XOR } (1 \ll i)$).
+- The minimum is taken over all cities $j$ that were part of the path before $i$.
 
-The computation proceeds by iterating through masks $S$ in increasing order of the number of set bits (or simply by increasing integer value), and for each mask, iterating through all possible ending cities $i$.
+The computation proceeds by iterating through masks $S$ in increasing order of the number of set bits, and for each mask, iterating through all possible ending cities $i$.
 
-### **3. Final Solution (Minimum Tour Cost)**
+---
 
-After filling the $\text{dp}$ table, the minimum cost of the Traveling Salesperson Tour (which starts at city $0$, visits all other cities exactly once, and returns to city $0$) is found by:
+## 3. Final Solution (Minimum Tour Cost)
 
-$$
+After filling the $\text{dp}$ table, the minimum cost of the Traveling Salesperson Tour is:
+
+```math
 \text{MinCost} = \min_{i=1 \dots N-1} \left( \text{dp}[(1 \ll N) - 1][i] + C(i, 0) \right)
-$$
+```
 
-where:
+Where:
 
-* $(1 \ll N) - 1$ is the bitmask where all $N$ bits are set, representing that all cities have been visited.
+- $(1 \ll N) - 1$ is the bitmask where all $N$ bits are set.
+- The minimum is taken over all cities $i$ from $1$ to $N-1$.
+- $C(i, 0)$ is the cost to return to the starting city.
 
-* The minimum is taken over all possible cities $i$ (from $1$ to $N-1$) that could be the second-to-last city in the tour before returning to city $0$.
+---
 
-* $C(i, 0)$ is the cost to travel from city $i$ back to the starting city $0$.
-
-### **4. Counting Optimal Paths**
+## 4. Counting Optimal Paths
 
 To count the number of optimal paths, we introduce another DP table, $\text{counts}[S][i]$, which stores the number of paths that achieve the minimum cost $\text{dp}[S][i]$.
 
-* **Base Case:**
+### Base Case:
 
-  $$
+```math
 \text{counts}[1 \ll 0][0] = 1
-$$
+```
 
-* **Recurrence Relation:**
-  When calculating $\text{dp}[S][i]$:
+### Recurrence Relation:
 
-  * If $\text{dp}[S \setminus {i}][j] + C(j, i) < \text{dp}[S][i]$:
+When calculating $\text{dp}[S][i]$:
 
-    $$
-\text{counts}[S][i] = \text{counts}[S \setminus {i}][j]
-$$
+- If $\text{dp}[S \setminus \{i\}][j] + C(j, i) < \text{dp}[S][i]$:
 
-    (A new minimum is found, so reset the count to the count of the path leading to this new minimum)
+```math
+\text{counts}[S][i] = \text{counts}[S \setminus \{i\}][j]
+```
 
-  * If $\text{dp}[S \setminus {i}][j] + C(j, i) = \text{dp}[S][i]$:
+- If $\text{dp}[S \setminus \{i\}][j] + C(j, i) = \text{dp}[S][i]$:
 
-    $$
-\text{counts}[S][i] += \text{counts}[S \setminus {i}][j]
-$$
+```math
+\text{counts}[S][i] += \text{counts}[S \setminus \{i\}][j]
+```
 
-    (An alternative path with the same minimum cost is found, so add its count)
+### Total Optimal Paths:
 
-* **Total Optimal Paths:**
-  The total number of optimal paths for the full tour is:
+```math
+\text{TotalOptimalPaths} = \sum_{\substack{i=1 \dots N-1 \\ \text{dp}[(1 \ll N) - 1][i] + C(i, 0) = \text{MinCost}}} \text{counts}[(1 \ll N) - 1][i]
+```
 
-  $$
-\text{TotalOptimalPaths} = \sum_{i=1 \dots N-1 \text{ s.t. } \text{dp}[(1 \ll N) - 1][i] + C(i, 0) = \text{MinCost}} \text{counts}[(1 \ll N) - 1][i]
-$$
+This sums the counts for all second-to-last cities $i$ that lead to the overall $\text{MinCost}$.
 
-  This sums the counts for all second-to-last cities $i$ that lead to the overall $\text{MinCost}$.
+---
 
 ## License
 
