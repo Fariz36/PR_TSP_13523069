@@ -32,16 +32,10 @@ This Ruby script implements a dynamic programming approach to solve the Travelin
     * Press the Windows key, type `cmd`, and press Enter. This will open the Command Prompt window.
 
 3.  **Navigate to the directory:**
-    * Use the `cd` command to navigate to the folder where you saved the `tsp_solver.rb` file.
-    * For example, if you saved it in your "Downloads" folder, type:
+    * Use the `cd` command to navigate to the folder where you saved the `tsp_solver.rb` file :
         ```bash
-        cd Downloads
+        cd <root_directory>
         ```
-    * If you saved it in a folder named "Projects" on your C drive, type:
-        ```bash
-        cd C:\Projects
-        ```
-    * You can use the `dir` command to list the files and folders in your current directory to help you navigate.
 
 4.  **Execute the script:**
     * Once you are in the correct directory, run the Ruby script using the `ruby` command followed by the filename:
@@ -71,17 +65,10 @@ This Ruby script implements a dynamic programming approach to solve the Travelin
     * Open the terminal application on your Linux system. You can usually find it in your applications menu or by pressing `Ctrl+Alt+T`.
 
 3.  **Navigate to the directory:**
-    * Use the `cd` command to navigate to the folder where you saved the `tsp_solver.rb` file.
-    * For example, if you saved it in your "Downloads" folder:
+    * Use the `cd` command to navigate to the folder where you saved the `tsp_solver.rb` file : 
         ```bash
-        cd Downloads
+        cd <root_directory>
         ```
-    * If you saved it in a folder named "projects" in your home directory:
-        ```bash
-        cd ~/projects
-        ```
-    * You can use the `ls` command to list the files and folders in your current directory to help you navigate.
-
 4.  **Execute the script:**
     * Once you are in the correct directory, run the Ruby script using the `ruby` command followed by the filename:
         ```bash
