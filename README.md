@@ -20,16 +20,74 @@ This Ruby script implements a dynamic programming approach to solve the Travelin
 
 ## How to Run the Code
 
-1.  **Open your terminal:** Open the command prompt or terminal on your operating system.
-2.  **Navigate to the directory:** Use the `cd` command to navigate to the folder where you saved the `tsp_solver.rb` file. For example, if you saved it in your "Downloads" folder:
-    ```bash
-    cd Downloads
-    ```
-3.  **Execute the script:** Run the Ruby script using the `ruby` command followed by the filename:
-    ```bash
-    ruby tsp_solver.rb
-    ```
-4.  **Follow the prompts:** The script will then guide you through the input process, asking you to choose the input type (matrix or edge list) and enter the graph data accordingly.
+### For Windows
+
+1.  **Ensure Ruby is installed:**
+    * Open your web browser and go to the official RubyInstaller for Windows website: [https://rubyinstaller.org/](https://rubyinstaller.org/).
+    * Download the recommended version of Ruby+Devkit. The Devkit is often needed for installing certain Ruby gems (though this script doesn't strictly require external gems, it's good to have).
+    * Run the downloaded installer. Follow the on-screen instructions. Make sure to check the box that says "Add Ruby executables to your PATH" during the installation. This allows you to run Ruby from the command prompt.
+    * If you chose to install Ruby+Devkit, the installer will likely prompt you to run `ridk install` at the end. It's generally recommended to select option `3` (MSYS2 base installation) and let it complete.
+
+2.  **Open Command Prompt:**
+    * Press the Windows key, type `cmd`, and press Enter. This will open the Command Prompt window.
+
+3.  **Navigate to the directory:**
+    * Use the `cd` command to navigate to the folder where you saved the `tsp_solver.rb` file.
+    * For example, if you saved it in your "Downloads" folder, type:
+        ```bash
+        cd Downloads
+        ```
+    * If you saved it in a folder named "Projects" on your C drive, type:
+        ```bash
+        cd C:\Projects
+        ```
+    * You can use the `dir` command to list the files and folders in your current directory to help you navigate.
+
+4.  **Execute the script:**
+    * Once you are in the correct directory, run the Ruby script using the `ruby` command followed by the filename:
+        ```bash
+        ruby tsp_solver.rb
+        ```
+    * The script will then start, and you will be prompted to choose the input type and enter the graph data.
+
+### For Linux (Ubuntu/Debian based example)
+
+1.  **Ensure Ruby is installed:**
+    * Most Linux distributions come with Ruby pre-installed. You can check if Ruby is installed by opening a terminal and typing:
+        ```bash
+        ruby -v
+        ```
+        If Ruby is not installed or you need a specific version, you can install it using your distribution's package manager. For Ubuntu/Debian:
+        ```bash
+        sudo apt update
+        sudo apt install ruby-full
+        ```
+        For Fedora/CentOS:
+        ```bash
+        sudo dnf install ruby
+        ```
+
+2.  **Open Terminal:**
+    * Open the terminal application on your Linux system. You can usually find it in your applications menu or by pressing `Ctrl+Alt+T`.
+
+3.  **Navigate to the directory:**
+    * Use the `cd` command to navigate to the folder where you saved the `tsp_solver.rb` file.
+    * For example, if you saved it in your "Downloads" folder:
+        ```bash
+        cd Downloads
+        ```
+    * If you saved it in a folder named "projects" in your home directory:
+        ```bash
+        cd ~/projects
+        ```
+    * You can use the `ls` command to list the files and folders in your current directory to help you navigate.
+
+4.  **Execute the script:**
+    * Once you are in the correct directory, run the Ruby script using the `ruby` command followed by the filename:
+        ```bash
+        ruby tsp_solver.rb
+        ```
+    * The script will then start, and you will be prompted to choose the input type and enter the graph data.
 
 ## Input
 
