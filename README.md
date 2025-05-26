@@ -139,11 +139,11 @@ After processing the input and solving the TSP, the script will output:
 * One of the optimal paths.
 
     ```
-    === Results ===
-    Minimum cost: 80.00
-    Number of optimal paths: 2
-    Calculation time: 0.001... seconds
-    Optimal path: 0 -> 1 -> 2 -> 0
+   === Results ===
+   Minimum cost: 60.0
+   Number of optimal paths: 2
+   Calculation time: 0.000118742 seconds
+   Optimal path: 0 -> 2 -> 1 -> 0
     ```
 
 ## Algorithm
